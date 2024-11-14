@@ -1,0 +1,79 @@
+:root {
+  --gray: #dcd9d9;
+  --gray-hover: #9d9c9c;
+  --black: #000;
+  --transition: 0.4s ease-in-out;
+  --ff: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  font-family: var(--ff);
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  background: var(--gray);
+}
+
+fieldset {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 3rem;
+}
+
+input {
+  padding-left: 0.5rem;
+  padding-block: 0.5rem;
+  font-size: 1.2rem;
+  border: 2px solid var(--gray);
+  outline: none;
+  transition: var(--transition);
+}
+
+input:hover {
+  border: 2px solid var(--gray-hover);
+}
+
+input:focus {
+  border: 2px solid var(--black);
+}
+
+button {
+  padding: 0.4rem 1.4rem;
+  font-size: 1.2rem;
+  border: 0;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+button:hover {
+  transform: rotate(2.5deg);
+  scale: 1.2;
+}
+
+.icon {
+  position: absolute;
+  right: 5.2rem;
+  bottom: 5.5rem;
+  width: 30px;
+  height: 30px;
+  max-width: 30px;
+  max-height: 30px;
+  cursor: pointer;
+  background: url(show-password.svg);
+}
+
+.toggle-password {
+  display: none;
+}
+
+.toggle-password:checked + .icon {
+  background: url(hide-password.svg);
+}
