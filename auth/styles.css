@@ -29,8 +29,7 @@ fieldset {
 }
 
 input {
-  padding-left: 1.0rem;
-  padding-block: 0.5rem;
+  padding: 0.5rem 1rem;
   border: 2px solid var(--gray);
   border-radius: 30px;
   font-size: 1.2rem;
@@ -62,12 +61,13 @@ button:hover {
 
 .icon {
   position: absolute;
-  right: 5.2rem;
+  right: 1.2rem;
   bottom: 5.5rem;
   width: 30px;
   height: 30px;
   max-width: 30px;
   max-height: 30px;
+  background: white;
   cursor: pointer;
   background: url(show-password.svg);
 }
