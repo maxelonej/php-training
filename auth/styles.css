@@ -2,8 +2,18 @@
   --gray: #dcd9d9;
   --gray-hover: #9d9c9c;
   --black: #000;
+  --white: #fff;
   --transition: 0.4s ease-in-out;
   --ff: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 * {
@@ -12,6 +22,7 @@
 
 body {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0;
@@ -24,7 +35,6 @@ fieldset {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
   font-size: 3rem;
   border-radius: 16px;
 }
@@ -46,29 +56,33 @@ input:focus {
   border: 2px solid var(--black);
 }
 
-button {
+.button {
   padding: 0.4rem 1.4rem;
   font-size: 1.2rem;
   border: 0;
   border-radius: 30px;
+  text-decoration: none;
+  color: var(--black);
+  background: var(--white);
   cursor: pointer;
   transition: var(--transition);
 }
 
-button:hover {
-  transform: rotate(2.5deg);
-  scale: 1.2;
+.button:hover {
+  transform: rotate(2.5deg) scale(1.2);
+}
+
+.password-toggle {
+  position: relative;
+  margin-bottom: 1rem;
 }
 
 .icon {
   position: absolute;
-  right: 1.2rem;
-  bottom: 5.5rem;
-  width: 30px;
-  height: 30px;
-  max-width: 30px;
-  max-height: 30px;
-  background: white;
+  right: -2.5rem;
+  bottom: 0.5rem;
+  width: min(30px, 30px);
+  height: min(30px, 30px);
   cursor: pointer;
   background: url(show-password.svg);
 }
@@ -79,4 +93,18 @@ button:hover {
 
 .toggle-password:checked + .icon {
   background: url(hide-password.svg);
+}
+
+.error {
+  display: block;
+  margin: 0;
+  margin-bottom: 1rem;
+  color: red;
+  font-size: 1rem;
+  font-weight: bold;
+  animation: fadeIn var(--transition) forwards;
+}
+
+.error:empty {
+  display: none;
 }
