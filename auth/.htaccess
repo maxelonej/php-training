@@ -1,0 +1,1 @@
+ErrorDocument 404 http://localhost/php-training/auth/error.php
