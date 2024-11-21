@@ -24,11 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     header("Location: about.php");
     exit();
   } else {
-    // echo "Логин в инпуте: " . htmlspecialchars($login) . "<br>";
-    // echo "Пароль в инпуте: " . htmlspecialchars($password) . "<br>";
+    // echo "Логин в инпуте: " . $login . "<br>";
+    // echo "Пароль в инпуте: " . $password . "<br>";
     // foreach ($dbUsers as $dbUser) {
-    //   echo "Логин в бд: " . htmlspecialchars($dbUser["username"]) . "<br>";
-    //   echo "Пароль в бд: " . htmlspecialchars($dbUser["password"]) . "<br>";
+    //   echo "Логин в бд: " . $dbUser["username"] . "<br>";
+    //   echo "Пароль в бд: " . $dbUser["password"] . "<br>";
     //   break;
     // }
     $error = "Неправильный логин или пароль";
