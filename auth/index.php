@@ -5,33 +5,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $login = trim($_POST["login"]);
   $password = trim($_POST["password"]);
 
-  if (!file_exists("users.json")) {
-    require_once "seeder.php";
-  }
-
-  $dbUsers = json_decode(file_get_contents("users.json"), true);
-  $authenticated = false;
-  foreach ($dbUsers as $dbUser) {
-    if ($dbUser["username"] === $login && $password === $dbUser["password"]) {
-      $authenticated = true;
-      break;
-    }
-  }
-
-  if ($authenticated) {
-    session_start();
-    $_SESSION["login"] = $login;
-    header("Location: about.php");
-    exit();
+  if (empty($login) || empty($password)) {
+    $error = "Логин и пароль не могут быть пустыми";
   } else {
-    // echo "Логин в инпуте: " . $login . "<br>";
-    // echo "Пароль в инпуте: " . $password . "<br>";
-    // foreach ($dbUsers as $dbUser) {
-    //   echo "Логин в бд: " . $dbUser["username"] . "<br>";
-    //   echo "Пароль в бд: " . $dbUser["password"] . "<br>";
-    //   break;
-    // }
-    $error = "Неправильный логин или пароль";
+    if (!file_exists("users.json")) {
+      require_once "seeder.php";
+    }
+
+    $dbUsers = json_decode(file_get_contents("users.json"), true);
+    $authenticated = false;
+    foreach ($dbUsers as $dbUser) {
+      if ($dbUser["username"] === $login && $password === $dbUser["password"]) {
+        $authenticated = true;
+        break;
+      }
+    }
+
+    if ($authenticated) {
+      session_start();
+      $_SESSION["login"] = $login;
+      header("Location: about.php");
+      exit();
+    } else {
+      // echo "Логин в инпуте: " . $login . "<br>";
+      // echo "Пароль в инпуте: " . $password . "<br>";
+      // foreach ($dbUsers as $dbUser) {
+      //   echo "Логин в бд: " . $dbUser["username"] . "<br>";
+      //   echo "Пароль в бд: " . $dbUser["password"] . "<br>";
+      //   break;
+      // }
+      $error = "Неправильный логин или пароль";
+    }
   }
 }
 
