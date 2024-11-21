@@ -108,3 +108,21 @@ input:focus {
 .error:empty {
   display: none;
 }
+
+.meta-table {
+  border-collapse: collapse;
+  width: 60%;
+  margin-block: 20px;
+}
+
+.meta-table th,
+.meta-table td {
+  border: 1px solid var(--black);
+  padding: 10px;
+  transition: var(--transition);
+}
+
+.meta-table th:hover,
+.meta-table td:hover {
+  background: var(--white);
+}
