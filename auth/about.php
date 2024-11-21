@@ -2,12 +2,42 @@
 session_start();
 
 if (isset($_SESSION["login"])) {
-  $username = $_SESSION["login"]; // Получаем логин из сессии
-  $helloMessage = "Добро пожаловать,  {$username}, на страницу \"О нас!\"";
-}
+  $login = $_SESSION["login"];
+  $helloMessage = "Добро пожаловать,  {$login}, на страницу 'О нас!'";
 
-// TODO: current date, time, any metainfo from $_SERVER
+  $currentDateTime = date('Y-m-d H:i:s');
+
+  $serverName = $_SERVER['SERVER_NAME'];
+  $requestMethod = $_SERVER['REQUEST_METHOD'];
+  $userAgent = $_SERVER['HTTP_USER_AGENT'];
+  $remotePort = $_SERVER['REMOTE_PORT'];
+  $clientIP = $_SERVER['REMOTE_ADDR'];
+  $requestURI = $_SERVER['REQUEST_URI'];
+  $protocol = $_SERVER['SERVER_PROTOCOL'];
+  $scriptName = $_SERVER['SCRIPT_NAME'];
+  $hostName = $_SERVER['HTTP_HOST'];
+  $httpStatus = http_response_code();
+  $serverPort = $_SERVER['SERVER_PORT'];
+  $phpVersion = phpversion();
+
+  $metaInfo = [
+    "Сервер" => $serverName,
+    "Метод запроса" => $requestMethod,
+    "User-Agent" => $userAgent,
+    "IP-адрес клиента" => $clientIP,
+    "Удаленный порт" => $remotePort,
+    "URI запроса" => $requestURI,
+    "Протокол" => $protocol,
+    "Имя скрипта" => $scriptName,
+    "Имя хоста" => $hostName,
+    "HTTP статус" => $httpStatus,
+    "Порт сервера" => $serverPort,
+    "Текущая дата и время" => $currentDateTime,
+    "Версия PHP" => $phpVersion,
+  ];
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -22,7 +52,20 @@ if (isset($_SESSION["login"])) {
   <main>
     <h1><?php echo $helloMessage; ?></h1>
     <p>Вы успешно авторизованы!</p>
-    <p class="server-info"></p>
+
+    <?php
+    if (!empty($metaInfo)) {
+      echo "<table class='meta-table'>";
+      echo "<tr><th>Параметр</th><th>Значение</th></tr>";
+
+      foreach ($metaInfo as $key => $value) {
+        echo "<tr><td>{$key}</td><td>{$value}</td></tr>";
+      }
+
+      echo "</table>";
+    }
+    ?>
+
     <a href="index.php">
       <button class="button">Выйти</button>
     </a>
