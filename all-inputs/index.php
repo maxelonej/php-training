@@ -1,61 +1,74 @@
 <?php
-$error = "";
+session_start();
+$filePath = 'data.json';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+function validate(): void
+{
+  $errors = [];
+
   if (empty($_POST['text'])) {
-    $error = "Поле 'Текст' не может быть пустым";
+    $errors[] = "Поле 'Текст' не может быть пустым";
   }
   if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    $error = "Неверный формат почты";
+    $errors[] = "Неверный формат почты";
   }
   if (!is_numeric($_POST['number'])) {
-    $error = "Неверный формат числа";
+    $errors[] = "Неверный формат числа";
   }
   if (empty($_POST['choice'])) {
-    $error = "Выберите один из трех пунктов";
+    $errors[] = "Выберите один из трех пунктов";
   }
   if (empty($_POST['gender'])) {
-    $error = "Выберите гендер";
+    $errors[] = "Выберите гендер";
   }
-  if (!isset($_POST['checkbox'])) {
-    $error = "Подтвердите согласие на обработку";
+  if (!isset($_POST['agree'])) {
+    $errors[] = "Подтвердите согласие на обработку";
   }
   if (empty($_POST['password'])) {
-    $error = "Поле 'Пароль' не может быть пустым";
+    $errors[] = "Поле 'Пароль' не может быть пустым";
   }
 
-  if (!$error) {
-    $newData = [
-      'date_time' => date('Y-m-d H:i:s'),
-      'text' => $_POST['text'],
-      'email' => $_POST['email'],
-      'number' => $_POST['number'],
-      'choice' => $_POST['choice'],
-      'gender' => $_POST['gender'],
-      'checkbox' => isset($_POST['checkbox']) ? true : false,
-      'password' => $_POST['password'],
-    ];
+  if (!empty($errors)) {
+    $_SESSION['errors'] = $errors;
+  }
+}
 
+function generateData(): array
+{
+  return [
+    'date_time' => date('Y-m-d H:i:s'),
+    'text' => $_POST['text'],
+    'email' => $_POST['email'],
+    'number' => $_POST['number'],
+    'choice' => $_POST['choice'],
+    'gender' => $_POST['gender'],
+    'agree' => isset($_POST['agree']),
+    'password' => $_POST['password'],
+  ];
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  validate();
+  if (!isset($_SESSION['errors'])) {
+    $newData = generateData();
     $filePath = 'data.json';
+
     if (file_exists($filePath) && filesize($filePath) > 0) {
       $currentData = json_decode(file_get_contents($filePath), true);
       if (!is_array($currentData)) {
         $currentData = [];
       }
     } else {
+      file_put_contents($filePath, json_encode([]));
       $currentData = [];
     }
+
     $currentData[] = $newData;
     file_put_contents($filePath, json_encode($currentData, JSON_PRETTY_PRINT));
 
-    echo '<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelector(".popup").classList.add("active");
-        });
-    </script>';
+    echo '<script> document.addEventListener("DOMContentLoaded", () => { document.querySelector(".popup").classList.add("active"); }); </script>';
   }
 }
-
 
 ?>
 
@@ -82,18 +95,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <option value="third">Третий</option>
     </select>
     <fieldset>
-      <input type="radio" name="gender" id="male">
+      <input type="radio" name="gender" id="male" value="male">
       <label for="male">Мужской</label>
-      <input type="radio" name="gender" id="female">
+      <input type="radio" name="gender" id="female" value="female">
       <label for="female">Женский</label>
     </fieldset>
     <fieldset>
-      <input type="checkbox" name="checkbox" id="checkbox">
-      <label for="checkbox">Подтверждение согласия на обработку</label>
+      <input type="checkbox" name="agree" id="agree">
+      <label for="agree">Подтверждение согласия на обработку</label>
     </fieldset>
     <input type="password" name="password" id="password">
     <p class="error">
-      <?php echo $error; ?>
+      <?php
+      if (isset($_SESSION['errors'])) {
+        echo implode('<br>', $_SESSION['errors']);
+        unset($_SESSION['errors']);
+      }
+      ?>
     </p>
     <a href="#"><button type="submit">Сформировать</button></a>
   </form>
