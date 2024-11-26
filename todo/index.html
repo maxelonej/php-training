@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Список дел / To-Do List</h1>
+      <p class="emojis">✍️ 📋 📝 ✔️ 🕒</p>
+      <!-- todo: добавить валидацию формы -->
+      <form class="form" action="index.php" method="post">
+        <input
+          type="text"
+          name="task"
+          class="task_name"
+          id="task"
+          placeholder="Название задачи"
+          oninvalid="this.setCustomValidity('Введите название задачи')"
+          oninput="this.setCustomValidity('')"
+          required
+        />
+        <button class="add_task" type="submit">Добавить задачу</button>
+      </form>
+      <ul class="tasks" id="tasks">
+        <!-- todo: импортировать данные из json -->
+        <!-- * 1 таск -> div img.кружочек, li.название, img.крестик -->
+      </ul>
+      <!--
+        * Возможные фичи
+        Очистить задачи
+        Сортировать задачи
+        Фильтр задач
+        Удалить выбранные задачи
+        Назначить выделеннные задачи как выполненные
+      -->
+    </div>
+  </body>
+</html>
