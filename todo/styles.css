@@ -50,7 +50,6 @@ body {
 }
 
 .container {
-  overflow: auto;
   display: flex;
   flex-direction: column;
   padding-top: 4rem;
@@ -118,7 +117,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  overflow: auto;
+  height: 20rem;
 }
 
 .task {
@@ -131,6 +130,7 @@ body {
   cursor: pointer;
   background: var(--primary);
   transition: var(--transition);
+  animation: fadeIn 0.4s forwards;
 
   * {
     color: var(--white);
