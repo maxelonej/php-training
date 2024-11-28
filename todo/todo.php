@@ -40,25 +40,28 @@
         container.addEventListener('click', function () {
           const taskElement = this.closest('.task');
           const taskId = taskElement.getAttribute('data-task-id');
+          taskElement.style.animation = 'fadeOut 0.4s forwards';
 
           const formData = new FormData();
           formData.append('delete_task_id', taskId);
 
-          fetch('index.php', {
-            method: 'POST',
-            body: formData
-          })
-            .then(response => response.json())
-            .then(data => {
-              if (data.success) {
-                taskElement.remove();
-              } else {
-                // console.error('Ошибка при удалении задачи');
-              }
+          setTimeout(() => {
+            fetch('form.php', {
+              method: 'POST',
+              body: formData
             })
-            .catch(error => {
-              // console.error('Ошибка: ', error);
-            });
+              .then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                  taskElement.remove();
+                } else {
+                  // console.error('Ошибка при удалении задачи');
+                }
+              })
+              .catch(error => {
+                // console.error('Ошибка: ', error);
+              });
+          }, 400);
         });
       });
     });
