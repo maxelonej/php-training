@@ -1,6 +1,5 @@
 <?php
-
-require_once("index.html");
 require_once("form.php");
+require_once("todo.php");
 
 ?>
