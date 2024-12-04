@@ -6,6 +6,7 @@
   --primary-darker: #518fce;
   --accent: #5e5ef7;
   --error: #ff0000;
+  --error-transparent: #ff000066;
   --transition: 0.3s ease-in-out;
 }
 
