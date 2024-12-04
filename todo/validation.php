@@ -7,4 +7,4 @@ function isValid($value): bool
 }
 
 
-?>
+>
