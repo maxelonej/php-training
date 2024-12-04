@@ -3,8 +3,6 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $task = $_POST['task'] ?? '';
-  require_once("validation.php");
-  // validation.php ($task)
   $validTask = trim($task);
 
   if ($validTask) {
@@ -19,8 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     header("Location: index.php");
     exit;
-  } else {
-    // valid error msg
   }
 }
 
