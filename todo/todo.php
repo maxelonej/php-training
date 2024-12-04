@@ -64,9 +64,6 @@
                   }
                 }
               })
-              .catch(error => {
-                // console.error('Ошибка: ', error);
-              });
           });
         });
       }
@@ -90,13 +87,8 @@
               .then(data => {
                 if (data.success) {
                   taskElement.remove();
-                } else {
-                  // console.error('Ошибка при удалении задачи');
                 }
               })
-              .catch(error => {
-                // console.error('Ошибка: ', error);
-              });
           }, 400);
         });
       });
