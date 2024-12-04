@@ -33,12 +33,12 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', () => {
       const deleteContainers = document.querySelectorAll('.delete-container');
 
       deleteContainers.forEach(container => {
-        container.addEventListener('click', function () {
-          const taskElement = this.closest('.task');
+        container.addEventListener('click', (event) => {
+          const taskElement = event.target.closest('.task');
           const taskId = taskElement.getAttribute('data-task-id');
           taskElement.style.animation = 'fadeOut 0.4s forwards';
 
@@ -65,6 +65,28 @@
         });
       });
     });
+
+    const tasks = document.querySelectorAll('.task');
+    if (tasks) {
+      tasks.forEach(task => {
+        task.addEventListener('click', () => {
+          const checkbox = task.querySelector('.checkmark');
+          const taskText = task.querySelector('.task_text');
+          const deleteContainer = task.querySelector('.delete_container');
+          if (checkbox && taskText) {
+            if (checkbox.src.includes('checkbox.svg')) {
+              taskText.style.textDecoration = "line-through";
+              checkbox.src = "img/checkmark.svg";
+              task.style.background = "var(--primary-darker)";
+            } else {
+              taskText.style.textDecoration = "none";
+              checkbox.src = "img/checkbox.svg";
+              task.style.background = "var(--primary)";
+            }
+          }
+        });
+      });
+    }
   </script>
 </body>
 
