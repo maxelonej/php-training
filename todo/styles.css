@@ -90,11 +90,12 @@
   }
 
   &:hover {
-    transform: scale(1.04);
+    scale: 1.04;
   }
 
   .checkmark {
     margin-inline: 1rem;
+    transition: var(--transition);
   }
 
   .task_text {
@@ -104,19 +105,17 @@
     text-overflow: ellipsis;
   }
 
-  /* todo: on hover change img src/bg */
   .delete-container {
     padding: 1rem;
     margin-left: 1rem;
     visibility: hidden;
     opacity: 0;
-    border: 3px solid var(--primary-darker);
+    border: 3px solid var(--error);
     border-radius: 30px;
-    background: var(--primary-darker);
     transition: var(--transition);
 
     &:hover {
-      border: 3px solid var(--error);
+      background: var(--error-transparent);
     }
   }
 
